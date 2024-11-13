@@ -17,8 +17,7 @@ public class MiArrayList<E> {
 	    if (tamaño == capacidad) {
 		   expandirCapacidad();
 	    }
-	    array[tamaño] = elemento; // Asignar el nuevo elemento al final del array
-	    tamaño++; // Incrementar el tamaño del ArrayList
+	    array[tamaño++] = elemento; // Asignar el nuevo elemento al final del array
 	}
  
 	// Método privado para expandir la capacidad del array en un 50%
