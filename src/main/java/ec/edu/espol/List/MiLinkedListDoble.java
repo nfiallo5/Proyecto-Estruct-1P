@@ -19,7 +19,8 @@ public class MiLinkedListDoble<T> {
 		} else {
 			tail.setSigt(nuevoNodo); //El nuevonodo se vuelve el tail
 			nuevoNodo.setPrev(tail);
-			tail = nuevoNodo;  
+			this.tail = nuevoNodo;  
+			formarCircular();
 		}
 		size++; 
 	}
@@ -53,7 +54,7 @@ public class MiLinkedListDoble<T> {
 		}
 		else{
 			this.tail = tail.getPrev(); //el penultimo se vuelve el tail
-			this.tail.setSigt(null); //el nuevo tail define como nulo su siguiente nodo
+			formarCircular();
 		}
 		size--;
 		return data;
@@ -63,20 +64,22 @@ public class MiLinkedListDoble<T> {
 		if(indice<0 || indice>size)
 			throw new IndexOutOfBoundsException();
 		
-		Nodo<T> actual = head;
+		Nodo<T> actual = head; 
 		T data;
 
 		if(indice == 0){ //Si el indice es el primer nodo
 			data = actual.getData();
-			head = head.getSigt();
-			if(head != null) head.setPrev(null);
+			this.head = head.getSigt();
+			if(head != null) 
+				head.setPrev(tail);
 			else 
-				tail = null;
+				this.tail = null;
 		}
-		else if(indice == size -1){ //Si el indice es el ultimo nodo
+		else if(indice == size - 1){ //Si el indice es el ultimo nodo
 			data = tail.getData(); //Se obtiene la data del tail
 			tail = tail.getPrev(); //Se define el nuevo tail como el penultimo nodo
-			if(tail != null) tail.setSigt(null); //Se define NULO el sigt nodo del tail
+			if(tail != null) 
+				tail.setSigt(head); 
 			else
 				head = null;
 		}
@@ -92,6 +95,13 @@ public class MiLinkedListDoble<T> {
 		}
 		size--;
 		return data;
+	}
+
+	// Arma una lista circular, formando el nodo siguiente del tail como el head
+	// y el anterior al head como tail
+	public void formarCircular(){
+		this.tail.setSigt(head);
+		this.head.setPrev(tail);
 	}
 
 }
