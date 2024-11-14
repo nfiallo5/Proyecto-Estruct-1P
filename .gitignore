@@ -1,0 +1,9 @@
+# Ignorar .class
+*.class
+
+# Ignorar files
+*.log
+*.tmp
+*.out
+.idea/
+*.iml
