@@ -1,9 +1,9 @@
 package ec.edu.espol.List;
 
 public class Nodo<E> {
-	E dato; // Dato almacenado en el nodo
-	Nodo<E> sigt; // Referencia al siguiente nodo en la lista
-	Nodo<E> prev; // Referencia al nodo anterior en la lista
+	private E dato; // Dato almacenado en el nodo
+	private Nodo<E> sigt; // Referencia al siguiente nodo en la lista
+	private Nodo<E> prev; // Referencia al nodo anterior en la lista
  
 	// Constructor que inicializa el nodo con un dato
 	protected Nodo(E dato) {

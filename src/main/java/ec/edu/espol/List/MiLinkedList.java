@@ -1,17 +1,20 @@
 package ec.edu.espol.List;
 
-public class MiLinkedListDoble<T> {
-	private Nodo<T> head;
-	private Nodo<T> tail;
-	private int size;
+import java.util.Queue;
+import java.util.Stack;
 
-	public MiLinkedListDoble(){
+public class MiLinkedList<T> {
+	protected Nodo<T> head;
+	protected Nodo<T> tail;
+	protected int size;
+
+	public MiLinkedList(){
 		head = null;
 		tail = null;
 		size = 0;
 	}
 
-	public void addElement(T elemento){
+	public void add(T elemento){
 		Nodo<T> nuevoNodo = new Nodo<>(elemento);
 		if (head == null) {
 			head = nuevoNodo; //Si no tiene Nodos, el creado se vuelve el head y el tail
@@ -19,23 +22,42 @@ public class MiLinkedListDoble<T> {
 		} else {
 			tail.setSigt(nuevoNodo); //El nuevonodo se vuelve el tail
 			nuevoNodo.setPrev(tail);
-			this.tail = nuevoNodo;  
+			this.tail = nuevoNodo;
 			formarCircular();
 		}
 		size++; 
 	}
 
-	public T get(int indice){
+	public void add(T elemento, int indice){
+		Nodo<T> nuevoNodo = new Nodo<>(elemento);
+		if(head == null){
+			head = nuevoNodo;
+			tail = nuevoNodo;
+		} else {
+			Nodo<T> actual = head;
+			for(int i = 0; i < indice; i++){
+				actual = actual.getSigt();
+			}
+		}
+	}
+
+	private Nodo<T> getNodo(int indice){
 		if(indice < 0 || indice > size){
 			throw new IndexOutOfBoundsException();
 		}
 
 		Nodo<T> actual = head;
+		// Va recorriendo los nodos hasta llegar al indice dado
 		for(int i =0; i<indice; i++){
-			actual = actual.getSigt(); //Busqueda similar al LinkedList simple
+			actual = actual.getSigt(); 
 		}
 
-		return actual.getData();
+		return actual;
+	}
+
+	public T get(int indice){
+		Nodo<T> nodo = getNodo(indice);
+		return nodo.getData();
 	}
 
 	public T getLast(){
@@ -76,12 +98,7 @@ public class MiLinkedListDoble<T> {
 				this.tail = null;
 		}
 		else if(indice == size - 1){ //Si el indice es el ultimo nodo
-			data = tail.getData(); //Se obtiene la data del tail
-			tail = tail.getPrev(); //Se define el nuevo tail como el penultimo nodo
-			if(tail != null) 
-				tail.setSigt(head); 
-			else
-				head = null;
+			return removeLast();
 		}
 		else{
 			for(int i =0; i<indice; i++){
@@ -104,4 +121,11 @@ public class MiLinkedListDoble<T> {
 		this.head.setPrev(tail);
 	}
 
+	public int getSize(){
+		return size;
+	}
+
+	public boolean isEmpty(){
+		return size == 0;
+	}
 }
