@@ -4,6 +4,7 @@ import java.util.Collections;
 
 import ec.edu.espol.Contactos.Contacto;
 import ec.edu.espol.List.MiLinkedList;
+import java.util.Comparator;
 
 public class ListaContactos {
     private static ListaContactos instacia;
@@ -30,9 +31,10 @@ public class ListaContactos {
 
     public String toString(){
         StringBuilder strb = new StringBuilder("Lista de Contactos:\n");
+        contactos.sort(Comparator.comparing(Contacto::getNombre));
         // Collections.sort(contactos, );
         for(int i = 0; i < contactos.size(); i++){
-            strb.append("["+i+"]" + contactos.get(i));
+            strb.append("[").append(i).append("] ").append(contactos.get(i)).append("\n");
         }
         return strb.toString();
     }

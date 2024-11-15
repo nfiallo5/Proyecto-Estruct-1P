@@ -35,12 +35,12 @@ public abstract class Contacto implements Comparable<Contacto> {
 		numeros.add(numero);
 	}
 
-	public void addCorreo(Email correo){
-		correos.add(correo);
-	}
-
 	public void removeNumero(Numero numero){
 		numeros.remove(numero);
+	}
+        
+        public void addCorreo(Email correo){
+		correos.add(correo);
 	}
 
 	public void removeCorreo(Email correo){
