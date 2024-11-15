@@ -20,6 +20,10 @@ public class Nodo<E> {
 		this.sigt = siguiente;
 	}
 
+	public Nodo<E> getSigtSigt(){
+		return sigt.sigt;
+	}
+
 	public Nodo<E> getPrev() {
 		return prev;
 	}

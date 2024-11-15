@@ -177,14 +177,14 @@ public class MiLinkedList<T> {
         Nodo<T> slow = head, fast = head;
         while (fast.getSigt() != null && fast.getSigtSigt() != null) {
             slow = slow.getSigt();
-            fast = fast.getSigtSigt();
+            fast = fast.getSigt();
         }
         return slow;
     }	
 
 	// Arma una lista circular, formando el nodo siguiente del tail como el head
 	// y el anterior al head como tail
-	public void formarCircular(){
+	private void formarCircular(){
 		this.tail.setSigt(head);
 		this.head.setPrev(tail);
 	}
