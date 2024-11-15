@@ -4,7 +4,7 @@ public class NumeroPersonal extends Numero {
 	
 	public NumeroPersonal(String numero){
 		super(numero);
-		descripcion = "Numero personal";
+		descripcion = "Personal";
 	}
 
 }

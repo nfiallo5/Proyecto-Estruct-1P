@@ -1,13 +1,21 @@
 package ec.edu.espol.List;
 
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
+
+import org.w3c.dom.Node;
+
 
 public class MiLinkedList<T> {
 	protected Nodo<T> head;
 	protected Nodo<T> tail;
 	protected int size;
-
+	
 	public MiLinkedList(){
 		head = null;
 		tail = null;
@@ -28,18 +36,16 @@ public class MiLinkedList<T> {
 		size++; 
 	}
 
-	public void add(T elemento, int indice){
-		Nodo<T> nuevoNodo = new Nodo<>(elemento);
-		if(head == null){
-			head = nuevoNodo;
-			tail = nuevoNodo;
-		} else {
-			Nodo<T> actual = head;
-			for(int i = 0; i < indice; i++){
-				actual = actual.getSigt();
-			}
-		}
-	}
+	// public void add(T elemento, int indice){
+	// 	Nodo<T> nuevoNodo = new Nodo<>(elemento);
+	// 	if(head == null){
+	// 		head = nuevoNodo;
+	// 		tail = nuevoNodo;
+	// 	} else {
+	// 		Nodo<T> actual = getNodo(indice);
+
+	// 	}
+	// }
 
 	private Nodo<T> getNodo(int indice){
 		if(indice < 0 || indice > size){
@@ -82,6 +88,19 @@ public class MiLinkedList<T> {
 		return data;
 	}
 
+	public T remove(T elemento){
+		Nodo<T> actual = head;
+		T data;
+		for(int i = 0; i<size; i++){
+			if(actual.getData().equals(elemento)){
+				data = remove(i);
+				return data;
+			}
+			actual = actual.getSigt();
+		}
+		throw new RuntimeException("No existe el elemento en la lista");
+	}
+
 	public T remove(int indice){
 		if(indice<0 || indice>size)
 			throw new IndexOutOfBoundsException();
@@ -114,6 +133,55 @@ public class MiLinkedList<T> {
 		return data;
 	}
 
+    private Nodo<T> mergeSort(Nodo<T> head, Comparator<T> comparator) {
+        if (head == null || head.getSigt() == null) {
+            return head;
+        }
+
+        // Split the linked list into two halves
+        Nodo<T> middle = getMiddle(head);
+        Nodo<T> nextOfMiddle = middle.getSigt();
+        middle.setSigt(null);
+
+        // Recursively sort both halves
+        Nodo<T> left = mergeSort(head, comparator);
+        Nodo<T> right = mergeSort(nextOfMiddle, comparator);
+
+        // Merge the sorted halves
+        return sortedMerge(left, right, comparator);
+    }
+
+    //Metodo sort para ordenar los nodos en base al Comparator hecho en cada clase
+    public void sort(Comparator<T> comparator){
+		head = mergeSort(head, comparator);
+    }
+
+    private Nodo<T> sortedMerge(Nodo<T> a, Nodo<T> b, Comparator<T> comparator) {
+        if (a == null) return b;
+        if (b == null) return a;
+
+        Nodo<T> result;
+        if (comparator.compare(a.getData(), b.getData()) <= 0) {
+            result = a;
+            result.setSigt(sortedMerge(a.getSigt(), b, comparator)); ;
+        } else {
+            result = b;
+            result.setSigt(sortedMerge(a, b.getSigt(), comparator));;
+        }
+        return result;
+    }
+
+    private Nodo<T> getMiddle(Nodo<T> head) {
+        if (head == null) return head;
+
+        Nodo<T> slow = head, fast = head;
+        while (fast.getSigt() != null && fast.getSigtSigt() != null) {
+            slow = slow.getSigt();
+            fast = fast.getSigtSigt();
+        }
+        return slow;
+    }	
+
 	// Arma una lista circular, formando el nodo siguiente del tail como el head
 	// y el anterior al head como tail
 	public void formarCircular(){
@@ -121,11 +189,12 @@ public class MiLinkedList<T> {
 		this.head.setPrev(tail);
 	}
 
-	public int getSize(){
+	public int size(){
 		return size;
 	}
 
 	public boolean isEmpty(){
 		return size == 0;
 	}
+
 }

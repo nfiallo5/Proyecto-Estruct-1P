@@ -11,7 +11,7 @@ public abstract class Numero {
 		this.numerotelefonico = numero;
 	}
 
-	protected int contarPalabra(String palabra){
+	private int contarPalabra(String palabra){
 		if(palabra == null || palabra.isEmpty()){
 			return 0;
 		} 

@@ -1,5 +1,10 @@
 package ec.edu.espol.Atributos;
 
-public class NumeroTrabajo {
+public class NumeroTrabajo extends Numero{
+
+	public NumeroTrabajo(String numero){
+		super(numero);
+		super.descripcion = "Trabajo";
+	}
 
 }
