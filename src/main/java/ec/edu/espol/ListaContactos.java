@@ -9,11 +9,28 @@ import java.util.Comparator;
 public class ListaContactos {
     private static ListaContactos instacia;
     private MiLinkedList<Contacto> contactos;
+    private int currentIndex = 0;
 
     private ListaContactos(){
         this.contactos = new MiLinkedList<>();
     }
 
+    public Contacto getContactoActual() {
+        return contactos.get(currentIndex);
+    }
+
+    // Navegar hacia adelante de manera circular
+    public Contacto avanzar() {
+        currentIndex = (currentIndex + 1) % contactos.size();
+        return getContactoActual();
+    }
+
+    // Navegar hacia atrás de manera circular
+    public Contacto retroceder() {
+        currentIndex = (currentIndex - 1 + contactos.size()) % contactos.size();
+        return getContactoActual();
+    }
+    
     public static ListaContactos getInstance(){
         if(instacia == null){
             instacia = new ListaContactos();
