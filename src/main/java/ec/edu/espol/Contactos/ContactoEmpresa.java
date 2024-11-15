@@ -20,5 +20,12 @@ public class ContactoEmpresa extends Contacto {
 			return c1.getNombre().compareToIgnoreCase(c2.getNombre());
 		}
 	};
+
+	@Override
+	public int compareTo(Contacto c2){
+		return this.getNombre().compareToIgnoreCase(c2.getNombre());
+	}
+
+	
 	
 }
