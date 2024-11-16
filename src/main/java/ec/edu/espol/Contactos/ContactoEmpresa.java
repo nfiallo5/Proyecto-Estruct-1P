@@ -9,8 +9,8 @@ public class ContactoEmpresa extends Contacto {
     private String empresa;
 
     public ContactoEmpresa(String nombre, Numero numero, String empresa, String rol){
-	    super(nombre, numero);
-	    this.empresa = empresa;
+	super(nombre, numero);
+	this.empresa = empresa;
         this.rol = rol;
         this.tipo = "empresa";
     }

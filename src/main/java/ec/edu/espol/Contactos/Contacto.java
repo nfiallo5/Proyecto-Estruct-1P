@@ -7,8 +7,9 @@ import ec.edu.espol.Atributos.Email;
 import ec.edu.espol.Atributos.Numero;
 import ec.edu.espol.List.MiArrayList;
 import ec.edu.espol.List.MiLinkedList;
+import java.io.Serializable;
 
-public abstract class Contacto implements Comparable<Contacto> {
+public abstract class Contacto implements Comparable<Contacto>, Serializable{
     protected String nombre; //nombre del contacto
     protected HashSet<Numero> numeros; //Los numeros telefonicos del contacto
     protected HashSet<Email> correos; //Los correos del contacto

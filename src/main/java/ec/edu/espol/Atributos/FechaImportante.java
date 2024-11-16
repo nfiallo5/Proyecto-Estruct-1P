@@ -1,8 +1,9 @@
 package ec.edu.espol.Atributos;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class FechaImportante {
+public class FechaImportante implements Serializable{
 	private String descripcion;
 	private LocalDate fecha;
 

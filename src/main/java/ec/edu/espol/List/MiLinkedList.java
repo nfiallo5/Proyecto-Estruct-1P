@@ -192,7 +192,7 @@ public class MiLinkedList<T> {  //esta es una lista doblemente enlazada
     	return size == 0;
     }
     
-    public MiLinkedListIterator iterator() {
+    public Iterator iterator() {
         return new MiLinkedListIterator();
     }
     

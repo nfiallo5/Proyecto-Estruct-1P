@@ -1,6 +1,8 @@
 package ec.edu.espol.Atributos;
 
-public abstract class Numero {
+import java.io.Serializable;
+
+public abstract class Numero implements Serializable{
     protected String numerotelefonico;
     protected String descripcion;
 
