@@ -13,7 +13,8 @@ public class ContactoPersonal extends Contacto {
 	public ContactoPersonal(String nombre, String apellido, Numero numero, MiArrayList<FechaImportante> fechas){
 		super(nombre, numero);
 		this.apellido = apellido;
-                this.fechas = new MiArrayList<>();
+        this.fechas = new MiArrayList<>();
+		this.tipo = "persona natural";
 	}
 
 	public void setApellido(String apellido){
@@ -28,29 +29,27 @@ public class ContactoPersonal extends Contacto {
 	//Si es negativo, c1 es menor que c2
 	//Si es positivo, c1 es mayor que c2
 	public static Comparator<ContactoPersonal> ordenarPorNombreOApellido = new Comparator<ContactoPersonal>() {
-        
-        
-            @Override
-            public int compare(ContactoPersonal c1, ContactoPersonal c2) {
-                // Tomamos el menor de nombre y apellido en ambos contactos
-                String menorC1 = c1.getNombre().compareToIgnoreCase(c1.getApellido()) <= 0 ? c1.getNombre() : c1.getApellido();
-                String menorC2 = c2.getNombre().compareToIgnoreCase(c2.getApellido()) <= 0 ? c2.getNombre() : c2.getApellido();
-
-                // Comparamos los menores de cada contacto
-                return menorC1.compareToIgnoreCase(menorC2);
-            }
+        @Override
+        public int compare(ContactoPersonal c1, ContactoPersonal c2) {
+            // Tomamos el menor de nombre y apellido en ambos contactos
+            String menorC1 = c1.getNombre().compareToIgnoreCase(c1.getApellido()) <= 0 ? c1.getNombre() : c1.getApellido();
+            String menorC2 = c2.getNombre().compareToIgnoreCase(c2.getApellido()) <= 0 ? c2.getNombre() : c2.getApellido();
+			// Comparamos los menores de cada contacto
+            return menorC1.compareToIgnoreCase(menorC2);
+        }
 	};
 
 	@Override
 	public int compareTo(Contacto contacto2){
-            if (contacto2 instanceof ContactoPersonal) {
-		// Comparar por nombre y apellido
-		ContactoPersonal otroPersonal = (ContactoPersonal) contacto2;
-		int nombreComparacion = this.nombre.compareTo(otroPersonal.getNombre());
-		return (nombreComparacion != 0) ? nombreComparacion : this.apellido.compareTo(otroPersonal.getApellido());
-            }
-            // Si no es un ContactoPersonal, solo comparar por nombre
-            return this.nombre.compareTo(contacto2.getNombre());
+		int nombreComparacion = this.nombre.compareTo(contacto2.getNombre());
+        if (contacto2 instanceof ContactoPersonal) {
+			// Comparar por nombre y apellido
+			ContactoPersonal otroPersonal = (ContactoPersonal) contacto2;
+			int apellidoComparacion = this.apellido.compareTo(otroPersonal.getApellido());
+			return (nombreComparacion != 0) ? nombreComparacion : apellidoComparacion;
+        }
+        // Si no es un ContactoPersonal, solo comparar por nombre
+        return nombreComparacion;
 	}
 
 }
