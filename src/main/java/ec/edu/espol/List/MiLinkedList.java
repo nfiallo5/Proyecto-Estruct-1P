@@ -18,8 +18,8 @@ public class MiLinkedList<T> {
 	
     public MiLinkedList(){
     	head = null;
-	tail = null;
-	size = 0;
+	    tail = null;
+	    size = 0;
     }
 
     public void add(T elemento){
@@ -92,48 +92,48 @@ public class MiLinkedList<T> {
     }
 
     public T remove(T elemento){
-	Nodo<T> actual = head;
-	T data;
-	for(int i = 0; i<size; i++){
+        Nodo<T> actual = head;
+        T data;
+        for(int i = 0; i<size; i++){
             if(actual.getData().equals(elemento)){
-		data = remove(i);
-		return data;
+                data = remove(i);
+                return data;
             }
-            actual = actual.getSigt();
-	}
-        throw new RuntimeException("No existe el elemento en la lista");
+                actual = actual.getSigt();
+        }
+            throw new RuntimeException("No existe el elemento en la lista");
     }
 
     public T remove(int indice){
         if(indice<0 || indice>size)
-	throw new IndexOutOfBoundsException();
+	        throw new IndexOutOfBoundsException();
 		
-	Nodo<T> actual = head; 
-	T data;
+	    Nodo<T> actual = head; 
+	    T data;
 
-	if(indice == 0){ //Si el indice es el primer nodo
+        if(indice == 0){ //Si el indice es el primer nodo
             data = actual.getData();
             this.head = head.getSigt();
             if(head != null) 
-		head.setPrev(tail);
+                head.setPrev(tail);
             else 
-		this.tail = null;
-	}
-	else if(indice == size - 1){ //Si el indice es el ultimo nodo
+                this.tail = null;
+        }
+        else if(indice == size - 1){ //Si el indice es el ultimo nodo
             return removeLast();
-	}
-	else{
-            for(int i =0; i<indice; i++){
-		actual = actual.getSigt(); 
-            }
-            data = actual.getData();
-            Nodo<T> anterior = actual.getPrev(); //Se obtiene el nodo anterior al buscado
-            anterior.setSigt(actual.getSigt()); //Se define el nuevo 'NEXT' como el next nodo del que se va a remover 
-            Nodo<T> posterior = actual.getSigt(); //Se obtiene el nodo posterior al buscado
-            posterior.setPrev(actual.getPrev()); //Se define el nuevo 'PREVIO' como el previo nodo del que se va a remover
-	}
-		size--;
-		return data;
+        }
+        else{
+                for(int i =0; i<indice; i++){
+                    actual = actual.getSigt(); 
+                }
+                data = actual.getData();
+                Nodo<T> anterior = actual.getPrev(); //Se obtiene el nodo anterior al buscado
+                anterior.setSigt(actual.getSigt()); //Se define el nuevo 'NEXT' como el next nodo del que se va a remover 
+                Nodo<T> posterior = actual.getSigt(); //Se obtiene el nodo posterior al buscado
+                posterior.setPrev(actual.getPrev()); //Se define el nuevo 'PREVIO' como el previo nodo del que se va a remover
+        }
+            size--;
+            return data;
 	}
 
     private Nodo<T> mergeSort(Nodo<T> head, Comparator<T> comparator) {
@@ -188,8 +188,8 @@ public class MiLinkedList<T> {
 	// Arma una lista circular, formando el nodo siguiente del tail como el head
 	// y el anterior al head como tail
     private void formarCircular(){
-	this.tail.setSigt(head);
-	this.head.setPrev(tail);
+	    this.tail.setSigt(head);
+	    this.head.setPrev(tail);
     }
 
     public int size(){
@@ -199,5 +199,5 @@ public class MiLinkedList<T> {
     public boolean isEmpty(){
     	return size == 0;
     }
-
+ 
 }
