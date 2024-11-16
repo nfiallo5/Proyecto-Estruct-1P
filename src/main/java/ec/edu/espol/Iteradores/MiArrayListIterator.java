@@ -1,6 +1,8 @@
 package ec.edu.espol.Iteradores;
 
-public class MiArrayListIterator<T> {
+import java.util.Iterator;
+
+public class MiArrayListIterator<T> implements Iterator<T>{
     private T[] array;              // Array que almacena los elementos
     private int currentIndex = 0;   // Índice actual de la iteración
     private int size;               // Tamaño de elementos en el array
@@ -10,11 +12,13 @@ public class MiArrayListIterator<T> {
         this.size = size;
     }
 
+    @Override
     public boolean hasNext() {
         // Comprueba si hay un siguiente elemento
         return currentIndex < size;
     }
 
+    @Override
     public T next() {
         // Devuelve el elemento actual y avanza el índice
         if (!hasNext()) {
@@ -36,6 +40,7 @@ public class MiArrayListIterator<T> {
         return size;
     }
 
+    @Override
     public void remove() {
         // Elimina el último elemento devuelto
         if (currentIndex <= 0) {

@@ -1,6 +1,7 @@
 package ec.edu.espol.List;
 
 import java.util.Iterator;
+import ec.edu.espol.Iteradores.MiArrayListIterator;
 
 public class MiArrayList<E>{
 	private int indice = 0; // Número de elementos en el ArrayList
@@ -83,5 +84,8 @@ public class MiArrayList<E>{
 	public boolean isEmpty(){
     	return indice == 0;
     }
-
+        
+        public MiArrayListIterator<E> iterator(){
+            return new MiArrayListIterator(array, indice);
+        }
  }

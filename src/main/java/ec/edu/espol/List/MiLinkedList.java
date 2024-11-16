@@ -3,7 +3,7 @@ package ec.edu.espol.List;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.Iterator;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -11,27 +11,26 @@ import java.util.Stack;
 import org.w3c.dom.Node;
 
 
-public class MiLinkedList<T> {
+public class MiLinkedList<T> {  //esta es una lista doblemente enlazada
     protected Nodo<T> head;
     protected Nodo<T> tail;
     protected int size;
 	
     public MiLinkedList(){
-    	head = null;
-	    tail = null;
-	    size = 0;
+        head = null;
+        tail = null;
+        size = 0;
     }
 
     public void add(T elemento){
 	Nodo<T> nuevoNodo = new Nodo<>(elemento);
 	if (head == null) {
             head = nuevoNodo; //Si no tiene Nodos, el creado se vuelve el head y el tail
-            tail = nuevoNodo; 
+            tail = head; 
 	} else {
             tail.setSigt(nuevoNodo); //El nuevonodo se vuelve el tail
             nuevoNodo.setPrev(tail);
             this.tail = nuevoNodo;
-            formarCircular();
 	}
 	size++; 
     }
@@ -71,24 +70,23 @@ public class MiLinkedList<T> {
 
     public T getLast(){
 	if(tail == null)
-	throw new IndexOutOfBoundsException();
-	return tail.getData(); //Se devuelve la data del tail (ultimo)
+            throw new IndexOutOfBoundsException();
+        return tail.getData(); //Se devuelve la data del tail (ultimo)
     }
 
     public T removeLast(){
 	if(tail == null)
             throw new IndexOutOfBoundsException();
 		
-            T data = tail.getData(); //Se guarda la data del tail
-            if(size == 1){
+        T data = tail.getData(); //Se guarda la data del tail
+        if(size == 1){
 		head = null; tail = null; //Si hay solo un nodo se vuelven nulos head y tail
-            }
-            else{
+        }
+        else{
 		this.tail = tail.getPrev(); //el penultimo se vuelve el tail
-		formarCircular();
-            }
-		size--;
-		return data;
+        }
+        size--;
+        return data;
     }
 
     public T remove(T elemento){
@@ -99,7 +97,7 @@ public class MiLinkedList<T> {
                 data = remove(i);
                 return data;
             }
-                actual = actual.getSigt();
+            actual = actual.getSigt();
         }
             throw new RuntimeException("No existe el elemento en la lista");
     }
@@ -166,10 +164,10 @@ public class MiLinkedList<T> {
         Nodo<T> result;
         if (comparator.compare(a.getData(), b.getData()) <= 0) {
             result = a;
-            result.setSigt(sortedMerge(a.getSigt(), b, comparator)); ;
+            result.setSigt(sortedMerge(a.getSigt(), b, comparator));
         } else {
             result = b;
-            result.setSigt(sortedMerge(a, b.getSigt(), comparator));;
+            result.setSigt(sortedMerge(a, b.getSigt(), comparator));
         }
         return result;
     }
@@ -185,12 +183,6 @@ public class MiLinkedList<T> {
         return slow;
     }	
 
-	// Arma una lista circular, formando el nodo siguiente del tail como el head
-	// y el anterior al head como tail
-    private void formarCircular(){
-	    this.tail.setSigt(head);
-	    this.head.setPrev(tail);
-    }
 
     public int size(){
     	return size;
@@ -198,6 +190,82 @@ public class MiLinkedList<T> {
 
     public boolean isEmpty(){
     	return size == 0;
+    }
+    
+    public MiLinkedListIterator iterator() {
+        return new MiLinkedListIterator();
+    }
+    
+    public class MiLinkedListIterator implements Iterator<T> {
+        protected Nodo<T> current = head;
+
+        // Reinicia el iterador al inicio
+        public void reset() {
+            current = head;
+        }
+
+        // Devuelve el siguiente elemento sin avanzar
+        public T peek() {
+            if (!hasNext()) throw new IllegalStateException("No more elements to peek");
+            return current.getData();
+        }
+
+        // Retrocede al elemento anterior
+        public T previous() {
+            if (current == null || current.getPrev() == null) throw new IllegalStateException("No previous element");
+            current = current.getPrev();
+            return current.getData();
+        }
+
+        // Cuenta los elementos restantes
+        public int countRemaining() {
+            Nodo<T> temp = current;
+            int count = 0;
+            while (temp != null) {
+                count++;
+                temp = temp.getSigt();
+            }
+            return count;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) throw new IllegalStateException("No more elements");
+            T data = current.getData();
+            current = current.getSigt();
+            return data;
+        }
+
+        @Override
+        public void remove() {
+            if (current == null) {
+        throw new IllegalStateException("Cannot remove element: current node is null");
+        }
+
+        Nodo<T> previous = current.getPrev();
+        Nodo<T> next = current.getSigt();
+
+        if (previous != null) {
+            previous.setSigt(next); // Actualiza el siguiente del nodo anterior
+        }
+
+        if (next != null) {
+            next.setPrev(previous); // Actualiza el anterior del nodo siguiente
+        }
+
+        if (current == head) {
+            // Si el nodo eliminado es la cabeza, actualizamos el head
+            head = next;
+        }
+
+        // Avanzar el iterador después de eliminar el nodo actual
+        current = next;
+    }
     }
  
 }
