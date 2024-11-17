@@ -1,6 +1,8 @@
 package ec.edu.espol.Contactos;
 
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashMap;
 
 import ec.edu.espol.Atributos.FechaImportante;
 import ec.edu.espol.Atributos.Numero;
@@ -9,6 +11,7 @@ import ec.edu.espol.List.MiArrayList;
 public class ContactoPersonal extends Contacto {
 	private String apellido;
 	private MiArrayList<FechaImportante> fechas;
+	
 
 	public ContactoPersonal(String nombre, String apellido, Numero numero){
 		super(nombre, numero);

@@ -1,6 +1,7 @@
 package ec.edu.espol;
 
 import java.util.Collections;
+import java.util.Comparator;
 
 import ec.edu.espol.Contactos.Contacto;
 import ec.edu.espol.List.MiLinkedList;
@@ -30,9 +31,9 @@ public class ListaContactos {
 
     public String toString(){
         StringBuilder strb = new StringBuilder("Lista de Contactos:\n");
-        // Collections.sort(contactos, );
+        contactos.sort(Contacto.ordenarPorNombre);
         for(int i = 0; i < contactos.size(); i++){
-            strb.append("["+i+"]" + contactos.get(i));
+            strb.append("["+i+"]" + contactos.get(i).getNombre());
         }
         return strb.toString();
     }

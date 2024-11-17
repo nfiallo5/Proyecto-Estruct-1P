@@ -13,7 +13,7 @@ public abstract class Contacto implements Comparable<Contacto> {
 	protected MiLinkedList<Contacto> relacionados; //Significa los contactos relacionados, no es obligatorio este campo 
 	protected HashSet<Numero> numeros; //Los numeros telefonicos del contacto
 	protected HashSet<Email> correos; //Los correos del contacto
-	//private String atributos;
+	
 
 	public Contacto(String nombre, Numero numero){
 		this.nombre = nombre;
@@ -51,15 +51,15 @@ public abstract class Contacto implements Comparable<Contacto> {
 		return nombre;
 	}
 
-	// @Override
-	// public int compareTo(Contacto otroContacto) {
-	//     // Comparar primero por nombre, y si son iguales, comparar por apellido
-	//     int nombreComparacion = this.nombre.compareToIgnoreCase(otroContacto.nombre);
-	//     if (nombreComparacion != 0) {
-	// 	   return nombreComparacion;
-	//     }
-	//     return this.apellido.compareToIgnoreCase(otroContacto.apellido);
-	// }
+	@Override
+	public abstract int compareTo(Contacto c2);
+
+	public static Comparator<Contacto> ordenarPorNombre = new Comparator<Contacto>() {
+		@Override
+		public int compare(Contacto c1, Contacto c2) {
+		    return c1.getNombre().compareToIgnoreCase(c2.getNombre());
+		}
+	  };
 
 	@Override
 	public String toString(){

@@ -177,7 +177,7 @@ public class MiLinkedList<T> {
         Nodo<T> slow = head, fast = head;
         while (fast.getSigt() != null && fast.getSigtSigt() != null) {
             slow = slow.getSigt();
-            fast = fast.getSigt();
+            fast = fast.getSigtSigt();
         }
         return slow;
     }	
