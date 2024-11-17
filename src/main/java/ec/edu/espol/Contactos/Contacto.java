@@ -10,15 +10,14 @@ import ec.edu.espol.List.MiLinkedList;
 import java.io.Serializable;
 
 public abstract class Contacto implements Comparable<Contacto>, Serializable{
-    protected String nombre; //nombre del contacto
-    protected HashSet<Numero> numeros; //Los numeros telefonicos del contacto
-    protected HashSet<Email> correos; //Los correos del contacto
+    protected String nombre;
+    protected HashSet<Numero> numeros;
+    protected HashSet<Email> correos;
     protected MiArrayList<String> direcciones;
     protected HashMap<String, MiArrayList<String>> redesSociales;
-    protected MiLinkedList<Contacto> relacionados; //Significa los contactos relacionados, no es obligatorio este campo 
+    protected MiLinkedList<Contacto> relacionados;
     protected MiArrayList<String> fotos;
-    protected String tipo;
-    //private String atributos;
+    protected String descripcion;
 
     public Contacto(String nombre, Numero numero){
         this.nombre = nombre;
@@ -134,7 +133,7 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
     public static Comparator<Contacto> ordenarPorTipo = new Comparator<Contacto>() {
         @Override
         public int compare(Contacto c1, Contacto c2) {
-            return c1.tipo.compareToIgnoreCase(c2.tipo);
+            return c1.descripcion.compareToIgnoreCase(c2.descripcion);
         }
     };
 

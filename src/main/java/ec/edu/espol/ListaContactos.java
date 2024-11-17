@@ -3,17 +3,17 @@ package ec.edu.espol;
 import java.util.Collections;
 
 import ec.edu.espol.Contactos.Contacto;
-import ec.edu.espol.List.CircularLinkedList;
+import ec.edu.espol.List.MiCircularLinkedList;
 import java.io.Serializable;
 import java.util.Comparator;
 
 public class ListaContactos implements Serializable{
     private static ListaContactos instancia;
-    private CircularLinkedList<Contacto> contactos;
+    private MiCircularLinkedList<Contacto> contactos;
     private int currentIndex = 0;
 
     private ListaContactos(){
-        this.contactos = new CircularLinkedList<>();
+        this.contactos = new MiCircularLinkedList<>();
     }
 
     public Contacto getContactoActual() {
