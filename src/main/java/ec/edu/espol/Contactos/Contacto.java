@@ -144,8 +144,8 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
         if (direcciones.isEmpty()) {
             strb.append("No especificadas");
         } else {
-            for (int i = 0; i < direcciones.size(); i++) {
-                strb.append("\n\t- " + direcciones.get(i));
+            for (String direccion : direcciones) {
+                strb.append("\n\t- " + direccion);
             }
         }
         strb.append("\nTeléfonos: ");
@@ -162,8 +162,8 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
         } else {
             for (String red : redesSociales.keySet()) {
                 strb.append("\n\t" + red + ": ");
-                for (int j = 0; j < redesSociales.get(red).size(); j++) {
-                    strb.append("\n\t\t- " + redesSociales.get(red).get(j));
+                for (String usuario : redesSociales.get(red)) {
+                    strb.append("\n\t\t- " + usuario);
                 }
             }
         }

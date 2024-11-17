@@ -2,9 +2,7 @@ package ec.edu.espol.List;
 
 import java.util.Iterator;
 
-import ec.edu.espol.Iteradores.MiArrayListIterator;
-
-public class MiArrayList<E>{
+public class MiArrayList<E> implements Iterable<E>{
 	private int size = 0;
 	private E[] array;
 	private int capacity = 2;

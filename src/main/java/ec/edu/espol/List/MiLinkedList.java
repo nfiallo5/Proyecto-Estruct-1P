@@ -3,7 +3,7 @@ package ec.edu.espol.List;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class MiLinkedList<E> {
+public class MiLinkedList<E> implements Iterable<E>{
     protected Nodo<E> head;
     protected Nodo<E> tail;
     protected int size;
