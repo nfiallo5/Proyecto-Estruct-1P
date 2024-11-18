@@ -81,7 +81,7 @@ public class ListaContactos implements Serializable{
         objectOut = new ObjectOutputStream(fileOut);
 
         objectOut.writeObject(contactos);
-        System.out.println("Se han guardado los contactos.");
+        System.out.println("Se han guardado los cambios.");
     }
     
     public void load() throws FileNotFoundException, IOException, ClassNotFoundException{

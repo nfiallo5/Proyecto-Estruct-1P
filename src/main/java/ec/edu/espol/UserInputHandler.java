@@ -10,6 +10,8 @@ import ec.edu.espol.Atributos.NumeroEmpresa;
 import ec.edu.espol.Contactos.Contacto;
 import ec.edu.espol.Contactos.ContactoEmpresa;
 import ec.edu.espol.Contactos.ContactoPersonal;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class UserInputHandler {
 	private ListaContactos admin = ListaContactos.getInstance();
@@ -73,10 +75,10 @@ public class UserInputHandler {
                     numero = scanner.nextLine();
                 }
 		switch (tipo) {
-			case "Personal":
+			case "P":
 				crearContactoPersonal(nom, numero);
 				break;
-			case "Empresa":
+			case "E":
 				crearContactoEmpresa(nom, numero);
 				break;
 			default:
@@ -178,11 +180,27 @@ public class UserInputHandler {
 	public ListaContactos getListaContactos(){
 		return admin;
 	}
+        
+        public boolean cargarContactos(ListaContactos usuario){
+            try{usuario.load();
+                System.out.println("La lista de contactos se ha cargado exitosamente.\n");
+            return true;}
+            catch (FileNotFoundException e){
+                System.out.println("No existe una lista de contactos para cargar.\n");
+            }
+            catch (IOException | ClassNotFoundException e1){
+                System.out.println("Error al cargar contactos.\n");
+            }
+            return false;
+        }
 
 
 	public static void main(String[] args){
 		UserInputHandler ui = new UserInputHandler();
 		ListaContactos admin = ui.getListaContactos();
+                System.out.println("Bienvenido a la aplicación de Lista de Contactos!\n");
+                ui.cargarContactos(admin);
+                
 		int input1;
 		do {
 			input1 = ui.mostrarMenu();
@@ -192,5 +210,11 @@ public class UserInputHandler {
 				ui.crearContacto();
 			}
 		} while(input1 != -2);
+                
+                try{
+                    admin.save();}
+                catch(IOException e){
+                    System.out.println("Hubo un error al guardar los datos.");
+                }
 	}
 }
