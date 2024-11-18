@@ -1,92 +1,104 @@
 package ec.edu.espol.List;
 
 import java.util.Iterator;
-import ec.edu.espol.Iteradores.MiArrayListIterator;
 
-
-public class MiArrayList<E>{
-	private int indice = 0; // Número de elementos en el ArrayList
-	private E[] array; // Array para almacenar elementos
-	private int capacidad = 10; // Capacidad inicial
+public class MiArrayList<E> implements Iterable<E>{
+	private int size = 0;
+	private E[] array;
+	private int capacity = 2;
  
-	// Constructor: inicializa el ArrayList con la capacidad inicial
 	@SuppressWarnings("unchecked")
 	public MiArrayList() {
-		array = (E[]) new Object[capacidad];
+	    array = (E[]) new Object[capacity];
 	}
  
-	// Método add para añadir un elemento al final del ArrayList
-	public void add(E elemento) {
-		if (indice == capacidad) {
-			expandirCapacidad();
-		}
-		array[indice++] = elemento;
+	public void add(E element) {
+	    if (size == capacity) expandirCapacidad();
+	    array[size++] = element;
 	}
 
-	// Método para eliminar un elemento en una posición específica
 	public E remove(int index) {
-        if (index < 0 || index >= indice) {
-            throw new IndexOutOfBoundsException("Índice fuera de rango");
-        }
-        E elementoEliminado = array[index];
-        for (int i = index; i < indice - 1; i++) {
-            array[i] = array[i + 1];
-        }
-        array[indice - 1] = null; 
-        capacidad--;
-        return elementoEliminado;
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Índice fuera de rango");
+        E removedElement = array[index];
+        for (int i = index; i < size - 1; i++) array[i] = array[i + 1];
+        array[index - 1] = null; 
+        size--;
+        return removedElement;
     }
 
 	public E remove(E element) {
-		for (int i = 0; i < indice; i++) {
-			if (array[i].equals(element)) {
-				return remove(i);
-			}
-		}
+		for (int i = 0; i < size; i++) 
+			if (array[i].equals(element)) return remove(i);
 		throw new RuntimeException("Elemento no encontrado en la lista");
 	}
 
 	public E get(int index) {
-        if (index < 0 || index >= indice) {
+        if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException("Índice fuera de rango");
-        }
         return array[index];
     }
 
-	// Método para verificar si un elemento está en la lista
-    public boolean contains(E elemento) {
-        for (int i = 0; i < indice; i++) {
-            if (array[i].equals(elemento)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-	public E removeLast(){
-		E ultimo = array[indice];
-		return ultimo;
-	}
- 
-	// Método privado para expandir la capacidad del array en un 50%
 	@SuppressWarnings("unchecked")
 	private void expandirCapacidad() {
-	    capacidad = capacidad + (capacidad / 2);
-	    E[] nuevoArray = (E[]) new Object[capacidad];
-	    System.arraycopy(array, 0, nuevoArray, 0, indice);
-	    array = nuevoArray;
+	    capacity = capacity + (capacity / 2);
+	    E[] newArray = (E[]) new Object[capacity];
+	    System.arraycopy(array, 0, newArray, 0, size);
+	    array = newArray;
 	}
  
-	// Método para obtener el tamaño actual del ArrayList
 	public int size() {
-	    return indice;
+	    return size;
 	}
 
 	public boolean isEmpty(){
-    	return indice == 0;
+    	return size == 0;
     }
         
-        public MiArrayListIterator<E> iterator(){
-            return new MiArrayListIterator(array, indice);
+    public Iterator<E> iterator(){
+        return new MiArrayListIterator();
+    }
+
+	public class MiArrayListIterator implements Iterator<E> {
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
         }
+
+        @Override
+        public E next() {
+            if (!hasNext()) throw new IllegalStateException("No hay más elementos");
+            return array[currentIndex++];
+        }
+
+        @Override
+        public void remove() {
+            if (currentIndex <= 0) throw new IllegalStateException("No hay elementos para eliminar");
+            for (int i = currentIndex - 1; i < size - 1; i++) array[i] = array[i + 1];
+            array[--size] = null;
+            currentIndex--;
+        }
+
+        public void reset() {
+            currentIndex = 0;
+        }
+
+        public E current() {
+            if (!hasNext()) throw new IllegalStateException("No hay elemento actual");
+            return array[currentIndex];
+        }
+
+        public int countRemaining() {
+            return size - currentIndex;
+        }
+
+        public boolean isFirst() {
+            return currentIndex == 0;
+        }
+
+        public boolean isLast() {
+            return currentIndex == size - 1;
+        }
+    }
  }

@@ -8,17 +8,13 @@ public abstract class Numero implements Serializable{
     private static final long serialVersionUID = 1L;
 
 
-    public Numero(int numero){
-        // if(contarPalabra(numero) != 10){
-        //     throw new NumberFormatException();
-        //	}
+    public Numero(String numero){
+        if(contarPalabra(numero) != 10) throw new NumberFormatException();
 	    this.numerotelefonico = numero;
     }
 
     private int contarPalabra(String palabra){
-	    if(palabra == null || palabra.isEmpty()){
-            return 0;
-        } 
+	    if(palabra == null || palabra.isBlank()) return 0;
 	    String[] letras = palabra.trim().split("\\s");
 	    return letras.length;
     }

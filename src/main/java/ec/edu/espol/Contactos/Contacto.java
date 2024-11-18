@@ -10,12 +10,12 @@ import ec.edu.espol.List.MiLinkedList;
 import java.io.Serializable;
 
 public abstract class Contacto implements Comparable<Contacto>, Serializable{
-    protected String nombre; //nombre del contacto
-    protected HashSet<Numero> numeros; //Los numeros telefonicos del contacto
-    protected HashSet<Email> correos; //Los correos del contacto
+    protected String nombre;
+    protected HashSet<Numero> numeros;
+    protected HashSet<Email> correos;
     protected MiArrayList<String> direcciones;
     protected HashMap<String, MiArrayList<String>> redesSociales;
-    protected MiLinkedList<Contacto> relacionados; //Significa los contactos relacionados, no es obligatorio este campo 
+    protected MiLinkedList<Contacto> relacionados;
     protected MiArrayList<String> fotos;
     protected String tipo;
     private static final long serialVersionUID = 1L;
@@ -134,7 +134,7 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
     public static Comparator<Contacto> ordenarPorTipo = new Comparator<Contacto>() {
         @Override
         public int compare(Contacto c1, Contacto c2) {
-            return c1.tipo.compareToIgnoreCase(c2.tipo);
+            return c1.descripcion.compareToIgnoreCase(c2.descripcion);
         }
     };
 
@@ -145,8 +145,8 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
         if (direcciones.isEmpty()) {
             strb.append("No especificadas");
         } else {
-            for (int i = 0; i < direcciones.size(); i++) {
-                strb.append("\n\t- " + direcciones.get(i));
+            for (String direccion : direcciones) {
+                strb.append("\n\t- " + direccion);
             }
         }
         strb.append("\nTeléfonos: ");
@@ -163,8 +163,8 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
         } else {
             for (String red : redesSociales.keySet()) {
                 strb.append("\n\t" + red + ": ");
-                for (int j = 0; j < redesSociales.get(red).size(); j++) {
-                    strb.append("\n\t\t- " + redesSociales.get(red).get(j));
+                for (String usuario : redesSociales.get(red)) {
+                    strb.append("\n\t\t- " + usuario);
                 }
             }
         }
