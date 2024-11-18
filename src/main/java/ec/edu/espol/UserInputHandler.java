@@ -19,11 +19,15 @@ public class UserInputHandler {
 
 	//Muestra el menu y devuelve el indice dado por el usuario
 	public int mostrarMenu(){
-		System.out.println(admin.toString());
+                String opcion = null;
+		do{System.out.println(admin.toString());
 		System.out.println("Escoja el indice de un contacto o para añadir un contacto (-1): ");
 		System.out.println("[exit: -2]");
-		return Integer.parseInt(scanner.nextLine());
-	}
+                opcion = scanner.nextLine();}
+                while(!opcion.matches("-?\\d+"));
+                
+		return Integer.parseInt(opcion);
+        }
 
 	//Muestra el contenido del contacto pedido por el usuario
 	public int mostrarContacto(int indice){
@@ -204,11 +208,14 @@ public class UserInputHandler {
 		int input1;
 		do {
 			input1 = ui.mostrarMenu();
-			if(input1 >= 0){
+			if(admin.getContactos().size() > input1 && input1 >= 0){
 				ui.mostrarContacto(input1);
-			} else if(input1 == -1){
+			}else if(input1 == -1){
 				ui.crearContacto();
 			}
+                        else if(input1 >= admin.getContactos().size() || input1 < -2 ){
+                            System.out.println("Escoja una opción válida.");
+                        }
 		} while(input1 != -2);
                 
                 try{
