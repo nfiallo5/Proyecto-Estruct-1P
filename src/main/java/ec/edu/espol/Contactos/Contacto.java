@@ -18,7 +18,7 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
     protected MiLinkedList<Contacto> relacionados; //Significa los contactos relacionados, no es obligatorio este campo 
     protected MiArrayList<String> fotos;
     protected String tipo;
-    //private String atributos;
+    private static final long serialVersionUID = 1L;
 
     public Contacto(String nombre, Numero numero){
         this.nombre = nombre;

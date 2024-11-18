@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 public class FechaImportante implements Serializable{
 	private String descripcion;
+	private static final long serialVersionUID = 1L;
 	private LocalDate fecha;
 
 	public FechaImportante(String descripcion, LocalDate fecha) {

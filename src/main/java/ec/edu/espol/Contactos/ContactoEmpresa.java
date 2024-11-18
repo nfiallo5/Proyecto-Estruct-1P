@@ -9,10 +9,10 @@ public class ContactoEmpresa extends Contacto {
     private String empresa;
 
     public ContactoEmpresa(String nombre, Numero numero, String empresa, String rol){
-	super(nombre, numero);
-	this.empresa = empresa;
+	    super(nombre, numero);
+	    this.empresa = empresa;
         this.rol = rol;
-        this.tipo = "empresa";
+        super.tipo = "empresa";
     }
 
     @Override
@@ -28,5 +28,11 @@ public class ContactoEmpresa extends Contacto {
             return c1.getNombre().compareToIgnoreCase(c2.getNombre());
         }
     };
+
+	@Override
+	public String toString(){
+		
+		return "";
+	}
 	
 }

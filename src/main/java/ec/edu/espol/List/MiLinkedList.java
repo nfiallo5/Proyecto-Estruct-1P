@@ -1,13 +1,7 @@
 package ec.edu.espol.List;
 
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Queue;
-import java.util.Set;
-import java.util.Stack;
-
 import org.w3c.dom.Node;
 
 
@@ -50,26 +44,26 @@ public class MiLinkedList<T> {  //esta es una lista doblemente enlazada
         */
         
     private Nodo<T> getNodo(int indice){
-	if(indice < 0 || indice > size){
-            throw new IndexOutOfBoundsException();
-	}
-
-	Nodo<T> actual = head;
-	// Va recorriendo los nodos hasta llegar al indice dado
-	for(int i =0; i<indice; i++){
-            actual = actual.getSigt(); 
+        if(indice < 0 || indice > size){   
+                throw new IndexOutOfBoundsException();
         }
 
-	return actual;
+        Nodo<T> actual = head;
+        // Va recorriendo los nodos hasta llegar al indice dado
+        for(int i =0; i<indice; i++){
+                actual = actual.getSigt(); 
+            }
+
+        return actual;
     }
 
     public T get(int indice){
-	Nodo<T> nodo = getNodo(indice);
-	return nodo.getData();
+        Nodo<T> nodo = getNodo(indice);
+        return nodo.getData();
     }
 
     public T getLast(){
-	if(tail == null)
+    if(tail == null)
             throw new IndexOutOfBoundsException();
         return tail.getData(); //Se devuelve la data del tail (ultimo)
     }
@@ -99,7 +93,7 @@ public class MiLinkedList<T> {  //esta es una lista doblemente enlazada
             }
             actual = actual.getSigt();
         }
-            throw new RuntimeException("No existe el elemento en la lista");
+        throw new RuntimeException("No existe el elemento en la lista");
     }
 
     public T remove(int indice){

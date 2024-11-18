@@ -3,6 +3,7 @@ package ec.edu.espol.List;
 import java.util.Iterator;
 import ec.edu.espol.Iteradores.MiArrayListIterator;
 
+
 public class MiArrayList<E>{
 	private int indice = 0; // Número de elementos en el ArrayList
 	private E[] array; // Array para almacenar elementos
@@ -11,15 +12,15 @@ public class MiArrayList<E>{
 	// Constructor: inicializa el ArrayList con la capacidad inicial
 	@SuppressWarnings("unchecked")
 	public MiArrayList() {
-	    array = (E[]) new Object[capacidad];
+		array = (E[]) new Object[capacidad];
 	}
  
 	// Método add para añadir un elemento al final del ArrayList
 	public void add(E elemento) {
-	    if (indice == capacidad) {
-		   expandirCapacidad();
-	    }
-	    array[indice++] = elemento;
+		if (indice == capacidad) {
+			expandirCapacidad();
+		}
+		array[indice++] = elemento;
 	}
 
 	// Método para eliminar un elemento en una posición específica

@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import ec.edu.espol.Atributos.FechaImportante;
 import ec.edu.espol.Atributos.Numero;
+import ec.edu.espol.Atributos.NumeroPersonal;
 import ec.edu.espol.List.MiArrayList;
 
 public class ContactoPersonal extends Contacto {
@@ -13,11 +14,12 @@ public class ContactoPersonal extends Contacto {
 	private MiArrayList<FechaImportante> fechas;
 	
 
-	public ContactoPersonal(String nombre, String apellido, Numero numero, MiArrayList<FechaImportante> fechas){
+	public ContactoPersonal(String nombre, String apellido, Numero numero){
 		super(nombre, numero);
 		this.apellido = apellido;
-        this.fechas = new MiArrayList<>();
+     	this.fechas = new MiArrayList<>();
 		this.tipo = "persona natural";
+		this.fechas = new MiArrayList<>();
 	}
 
 	public void setApellido(String apellido){
@@ -26,6 +28,10 @@ public class ContactoPersonal extends Contacto {
 
 	public String getApellido() {
 		return apellido;
+	}
+
+	public void addFecha(FechaImportante fecha){
+		fechas.add(fecha);
 	}
 
 	//Si son iguales, resultado es 0
@@ -55,4 +61,9 @@ public class ContactoPersonal extends Contacto {
         return nombreComparacion;
 	}
 
+	public static void main(String[] args){
+		ContactoPersonal c1 = new ContactoPersonal("hola", "mundo", new NumeroPersonal(1234));
+		System.out.println(c1);
+	}
 }
+ 

@@ -12,6 +12,7 @@ public class ListaContactos implements Serializable{
     private static ListaContactos instancia;
     private CircularLinkedList<Contacto> contactos;
     private int currentIndex = 0;
+    private static final long serialVersionUID = 1L;
 
     private ListaContactos(){
         this.contactos = new CircularLinkedList<>();
@@ -48,13 +49,22 @@ public class ListaContactos implements Serializable{
         contactos.remove(contacto);
     }
 
+    public CircularLinkedList<Contacto> getContactos(){
+        return contactos;
+    }
+
+    public int getCurrentIndex(){
+        return currentIndex;
+    }
+
     @Override
     public String toString(){
         StringBuilder strb = new StringBuilder("Lista de Contactos:\n");
+        //Por default se ordena los contactos por su nombre
         contactos.sort(Comparator.comparing(Contacto::getNombre));
         // Collections.sort(contactos, );
         for(int i = 0; i < contactos.size(); i++){
-            strb.append("[").append(i).append("] ").append(contactos.get(i)).append("\n");
+            strb.append("[").append(i).append("] ").append(contactos.get(i).getNombre()).append("\n");
         }
         return strb.toString();
     }

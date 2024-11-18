@@ -2,7 +2,8 @@ package ec.edu.espol.Atributos;
 
 import java.io.Serializable;
 
-public abstract class Email implements Serializable{
+public class Email implements Serializable{
+	private static final long serialVersionUID = 1L;
 	protected String email;
 	private String tipo = "personal";
 
