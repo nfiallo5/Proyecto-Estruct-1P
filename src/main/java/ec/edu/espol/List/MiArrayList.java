@@ -1,8 +1,9 @@
 package ec.edu.espol.List;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class MiArrayList<E> implements Iterable<E>{
+public class MiArrayList<E> implements Iterable<E>, Serializable{
 	private int size = 0;
 	private E[] array;
 	private int capacity = 2;

@@ -1,6 +1,8 @@
 package ec.edu.espol.List;
 
-public class MyStack<E> extends MiLinkedList<E> {
+import java.io.Serializable;
+
+public class MyStack<E> extends MiLinkedList<E> implements Serializable{
 	public MyStack(){}
 
 	public E peek(){

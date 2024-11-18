@@ -2,17 +2,19 @@ package ec.edu.espol.Contactos;
 
 import java.util.Comparator;
 
-import ec.edu.espol.Atributos.Numero;
+
+import ec.edu.espol.Atributos.NumeroEmpresa;
 
 public class ContactoEmpresa extends Contacto {
     private String rol;
     private String empresa;
 
-    public ContactoEmpresa(String nombre, Numero numero, String empresa, String rol){
-	    super(nombre, numero);
-	    this.empresa = empresa;
+    public ContactoEmpresa(String nombre, String numero, String empresa, String rol){
+	super(nombre);
+	this.empresa = empresa;
+        numeros.add(new NumeroEmpresa(numero));
         this.rol = rol;
-        super.tipo = "Empresa";
+        super.tipo = "E";
     }
 
     @Override

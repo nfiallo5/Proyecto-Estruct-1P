@@ -20,10 +20,9 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
     protected String tipo;
     private static final long serialVersionUID = 1L;
 
-    public Contacto(String nombre, Numero numero){
+    public Contacto(String nombre){
         this.nombre = nombre;
         this.numeros = new HashSet<>();
-        numeros.add(numero);
         this.correos = new HashSet<>();
         this.direcciones = new MiArrayList<>();
         this.redesSociales = new HashMap<>();
@@ -49,8 +48,7 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
     }
         
     public void addCorreo(Email correo){
-        boolean success = correos.add(correo);
-        if (!success)
+        if (!correos.add(correo))
             System.out.println("El correo: " + correo + " ya existe.");
     }
 

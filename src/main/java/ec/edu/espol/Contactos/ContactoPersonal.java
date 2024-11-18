@@ -14,11 +14,12 @@ public class ContactoPersonal extends Contacto {
 	private MiArrayList<FechaImportante> fechas;
 	
 
-	public ContactoPersonal(String nombre, String apellido, Numero numero){
-		super(nombre, numero);
-		this.apellido = apellido;
+    public ContactoPersonal(String nombre, String apellido, String numero, String tipo){
+	super(nombre);
+        numeros.add(new NumeroPersonal(numero, tipo));
+	this.apellido = apellido;
         this.fechas = new MiArrayList<>();
-		this.tipo = "Persona Natural";
+	this.tipo = "P";
 	}
 
 	public void setApellido(String apellido){
@@ -61,7 +62,7 @@ public class ContactoPersonal extends Contacto {
 	}
 
 	public static void main(String[] args){
-		ContactoPersonal c1 = new ContactoPersonal("hola", "mundo", new NumeroPersonal("1234"));
+		ContactoPersonal c1 = new ContactoPersonal("hola", "mundo", "1234", "casa");
 		System.out.println(c1);
 	}
 }

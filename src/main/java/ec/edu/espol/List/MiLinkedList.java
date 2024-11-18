@@ -1,9 +1,10 @@
 package ec.edu.espol.List;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class MiLinkedList<E> implements Iterable<E>{
+public class MiLinkedList<E> implements Iterable<E>, Serializable{
     protected Nodo<E> head;
     protected Nodo<E> tail;
     protected int size;

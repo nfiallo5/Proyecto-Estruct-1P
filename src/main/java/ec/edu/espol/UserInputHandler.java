@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import ec.edu.espol.Atributos.Email;
 import ec.edu.espol.Atributos.Numero;
 import ec.edu.espol.Atributos.NumeroPersonal;
-import ec.edu.espol.Atributos.NumeroTrabajo;
+import ec.edu.espol.Atributos.NumeroEmpresa;
 import ec.edu.espol.Contactos.Contacto;
 import ec.edu.espol.Contactos.ContactoEmpresa;
 import ec.edu.espol.Contactos.ContactoPersonal;
@@ -56,18 +56,22 @@ public class UserInputHandler {
 	}
 
 	public void crearContacto(){
-		System.out.println("Nombre: ");
-		String nom = scanner.nextLine();
+            String nom;
+		do{System.out.println("Nombre: ");
+		nom = scanner.nextLine();}
+                while (Utilidad.validarLetras(nom));
+                System.out.println("P = Personal\nE = Empresarial\nElija un tipo de contacto (P/E):");
+                String tipo  = scanner.nextLine();
+                while(!tipo.equals("E") && !tipo.equals("P")){
+                    System.out.println("Tipo debe ser Empresa o Personal.");
+                    System.out.println("Tipo de contacto (P/E):");
+                    tipo  = scanner.nextLine();}
 		System.out.println("Numero telefonico: ");
 		String numero = scanner.nextLine();
-                System.out.println("tipo de contacto (Personal/Empresa):");
-                String tipo  = scanner.nextLine();
-                while(!tipo.equals("Empresa") || !tipo.equals("Personal")){
-                    System.out.println("Tipo de ");
-                    System.out.println("tipo de contacto (Personal/Empresa):");
-                    tipo  = scanner.nextLine();}
-                
-		scanner.nextLine();
+                while(!numero.matches("\\d{10}")){
+                    System.out.println("Por favor ingrese un número de 10 carácteres:");
+                    numero = scanner.nextLine();
+                }
 		switch (tipo) {
 			case "Personal":
 				crearContactoPersonal(nom, numero);
@@ -104,18 +108,27 @@ public class UserInputHandler {
 
 	private String anadirCorreo(Contacto c1){
 		String input;
-		do {
-			System.out.println("Ingrese correo [volver: -1]: ");
-			input =scanner.nextLine();
-			if(!(input.equals("-1"))){
-				Email correo = new Email(input);
-				if(c1 instanceof ContactoPersonal){
-					c1.addCorreo(correo);
-				}
-				correo.setTipo("Trabajo");
-				c1.addCorreo(correo);
-			}
-		} while (!input.equals("-1"));
+		do{ 
+                    System.out.println("Ingrese correo [volver: -1]: ");
+                    input =scanner.nextLine();
+                    while(!Utilidad.validarCorreo(input) && !(input.equals("-1"))){
+                        System.out.println("El correo no es válido. Inténtelo otra vez.");
+                        System.out.println("Ingrese correo [volver: -1]: ");
+                        input =scanner.nextLine();
+                    }
+                    if(!input.equals("-1")){
+                        String etq;
+                        do{System.out.println("Ingrese una etiqueta de para este correo: ");
+                        etq = scanner.nextLine();
+                        }
+                        while(Utilidad.validarLetras(etq));
+                        Email correo = new Email(input, etq);
+                        c1.addCorreo(correo);
+                    }
+                }
+                while(!input.equals("-1"));
+                    
+			
 		return input;
 	}
 
@@ -132,21 +145,30 @@ public class UserInputHandler {
 	}
 
 	public void crearContactoPersonal(String nombre, String numero){
-		String apellido = "";
-		System.out.println("Apellido (opcional): ");
-		apellido = scanner.nextLine();
-		Contacto c1 = new ContactoPersonal(nombre, apellido, new NumeroPersonal(numero));
+                String tipo;
+                do{System.out.println("Ingrese una etiqueta para este número (Personal, casa, trabajo, etc):");
+                tipo = scanner.nextLine();}
+                while (Utilidad.validarLetras(tipo));
+                String apellido;
+		do{System.out.println("Apellido: ");
+                apellido = scanner.nextLine();}
+                while (Utilidad.validarLetras(apellido));
+		Contacto c1 = new ContactoPersonal(nombre, apellido, numero, tipo);
 		menuAtributos(c1);
 		admin.addContacto(c1);
 		System.out.println("Contacto Creado con Exito");
 	}
 
 	public void crearContactoEmpresa(String nombre, String numero){
-		System.out.println("Empresa: ");
-		String empresa = scanner.nextLine();
-		System.out.println("Rol: ");
-		String rol = scanner.nextLine();
-		Contacto c1 = new ContactoEmpresa(nombre, new NumeroTrabajo(numero), empresa, rol);
+            String empresa;
+		do{System.out.println("Empresa: ");
+		empresa = scanner.nextLine();}
+                while(Utilidad.validarLetras(empresa));
+                String rol;
+		do{System.out.println("Rol: ");
+		rol = scanner.nextLine();}
+                while(Utilidad.validarLetras(rol));
+		Contacto c1 = new ContactoEmpresa(nombre, numero, empresa, rol);
 		menuAtributos(c1);
 		admin.addContacto(c1);
 		System.out.println("Contacto Creado con Exito");

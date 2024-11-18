@@ -1,10 +1,11 @@
 
 package ec.edu.espol.List;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class MiCircularLinkedList <E> extends MiLinkedList<E>{
+public class MiCircularLinkedList <E> extends MiLinkedList<E> implements Serializable{
     private void formarCircular(){
         this.tail.setNext(head);
         this.head.setPrev(tail);

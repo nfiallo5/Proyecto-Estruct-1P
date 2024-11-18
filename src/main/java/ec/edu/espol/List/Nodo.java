@@ -1,6 +1,8 @@
 package ec.edu.espol.List;
 
-public class Nodo<E> {
+import java.io.Serializable;
+
+public class Nodo<E> implements Serializable{
 	private Nodo<E> prev;
 	private E dato;
 	private Nodo<E> next;
