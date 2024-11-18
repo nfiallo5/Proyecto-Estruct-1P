@@ -134,7 +134,7 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
     public static Comparator<Contacto> ordenarPorTipo = new Comparator<Contacto>() {
         @Override
         public int compare(Contacto c1, Contacto c2) {
-            return c1.descripcion.compareToIgnoreCase(c2.descripcion);
+            return c1.tipo.compareToIgnoreCase(c2.tipo);
         }
     };
 

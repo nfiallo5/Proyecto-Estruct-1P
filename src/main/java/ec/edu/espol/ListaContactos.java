@@ -5,6 +5,12 @@ import java.util.Comparator;
 
 import ec.edu.espol.Contactos.Contacto;
 import ec.edu.espol.List.MiCircularLinkedList;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -49,7 +55,7 @@ public class ListaContactos implements Serializable{
         contactos.remove(contacto);
     }
 
-    public CircularLinkedList<Contacto> getContactos(){
+    public MiCircularLinkedList<Contacto> getContactos(){
         return contactos;
     }
 
@@ -67,5 +73,22 @@ public class ListaContactos implements Serializable{
             strb.append("[").append(i).append("] ").append(contactos.get(i).getNombre()).append("\n");
         }
         return strb.toString();
+    }
+    
+    public void save() throws IOException{
+        FileOutputStream fileOut = new FileOutputStream("Contactos.ser");
+        ObjectOutputStream objectOut;
+        objectOut = new ObjectOutputStream(fileOut);
+
+        objectOut.writeObject(contactos);
+        System.out.println("Se han guardado los contactos.");
+    }
+    
+    public void load() throws FileNotFoundException, IOException, ClassNotFoundException{
+        FileInputStream fileIn = new FileInputStream("Contactos.ser");
+        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+        this.contactos = (MiCircularLinkedList<Contacto>) objectIn.readObject();
+        System.out.println("Se ha cargado la lista de contactos exitosamente.");
+        
     }
 }

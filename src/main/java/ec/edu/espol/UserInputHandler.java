@@ -13,15 +13,14 @@ import ec.edu.espol.Contactos.ContactoPersonal;
 
 public class UserInputHandler {
 	private ListaContactos admin = ListaContactos.getInstance();
-	private Scanner scanner = new Scanner(System.in);
+	Scanner scanner = new Scanner(System.in);
 
 	//Muestra el menu y devuelve el indice dado por el usuario
 	public int mostrarMenu(){
 		System.out.println(admin.toString());
 		System.out.println("Escoja el indice de un contacto o para añadir un contacto (-1): ");
 		System.out.println("[exit: -2]");
-		Integer input = Integer.parseInt(scanner.nextLine());
-		return input;
+		return Integer.parseInt(scanner.nextLine());
 	}
 
 	//Muestra el contenido del contacto pedido por el usuario
@@ -60,9 +59,14 @@ public class UserInputHandler {
 		System.out.println("Nombre: ");
 		String nom = scanner.nextLine();
 		System.out.println("Numero telefonico: ");
-		int numero = Integer.parseInt(scanner.nextLine());
-		System.out.println("tipo de contacto (Personal/Empresa):");
-		String tipo  = scanner.nextLine();
+		String numero = scanner.nextLine();
+                System.out.println("tipo de contacto (Personal/Empresa):");
+                String tipo  = scanner.nextLine();
+                while(!tipo.equals("Empresa") || !tipo.equals("Personal")){
+                    System.out.println("Tipo de ");
+                    System.out.println("tipo de contacto (Personal/Empresa):");
+                    tipo  = scanner.nextLine();}
+                
 		scanner.nextLine();
 		switch (tipo) {
 			case "Personal":
@@ -127,7 +131,7 @@ public class UserInputHandler {
 		return input;
 	}
 
-	public void crearContactoPersonal(String nombre, int numero){
+	public void crearContactoPersonal(String nombre, String numero){
 		String apellido = "";
 		System.out.println("Apellido (opcional): ");
 		apellido = scanner.nextLine();
@@ -137,7 +141,7 @@ public class UserInputHandler {
 		System.out.println("Contacto Creado con Exito");
 	}
 
-	public void crearContactoEmpresa(String nombre, int numero){
+	public void crearContactoEmpresa(String nombre, String numero){
 		System.out.println("Empresa: ");
 		String empresa = scanner.nextLine();
 		System.out.println("Rol: ");

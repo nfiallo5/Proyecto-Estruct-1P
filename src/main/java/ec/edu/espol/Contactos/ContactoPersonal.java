@@ -18,7 +18,7 @@ public class ContactoPersonal extends Contacto {
 		super(nombre, numero);
 		this.apellido = apellido;
         this.fechas = new MiArrayList<>();
-		this.descripcion = "Persona Natural";
+		this.tipo = "Persona Natural";
 	}
 
 	public void setApellido(String apellido){
@@ -61,7 +61,7 @@ public class ContactoPersonal extends Contacto {
 	}
 
 	public static void main(String[] args){
-		ContactoPersonal c1 = new ContactoPersonal("hola", "mundo", new NumeroPersonal(1234));
+		ContactoPersonal c1 = new ContactoPersonal("hola", "mundo", new NumeroPersonal("1234"));
 		System.out.println(c1);
 	}
 }

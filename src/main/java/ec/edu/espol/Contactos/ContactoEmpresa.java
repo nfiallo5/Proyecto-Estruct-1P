@@ -12,7 +12,7 @@ public class ContactoEmpresa extends Contacto {
 	    super(nombre, numero);
 	    this.empresa = empresa;
         this.rol = rol;
-        super.descripcion = "Empresa";
+        super.tipo = "Empresa";
     }
 
     @Override

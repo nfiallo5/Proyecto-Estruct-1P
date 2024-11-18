@@ -3,7 +3,7 @@ package ec.edu.espol.Atributos;
 import java.io.Serializable;
 
 public abstract class Numero implements Serializable{
-    protected int numerotelefonico;
+    protected String numerotelefonico;
     protected String descripcion;
     private static final long serialVersionUID = 1L;
 
