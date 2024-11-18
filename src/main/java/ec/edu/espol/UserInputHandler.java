@@ -65,7 +65,7 @@ public class UserInputHandler {
             String nom;
 		do{System.out.println("Nombre: ");
 		nom = scanner.nextLine();}
-                while (Utilidad.validarLetras(nom));
+                while (!Utilidad.validarLetras(nom));
                 System.out.println("P = Personal\nE = Empresarial\nElija un tipo de contacto (P/E):");
                 String tipo  = scanner.nextLine();
                 while(!tipo.equals("E") && !tipo.equals("P")){
@@ -154,11 +154,11 @@ public class UserInputHandler {
                 String tipo;
                 do{System.out.println("Ingrese una etiqueta para este número (Personal, casa, trabajo, etc):");
                 tipo = scanner.nextLine();}
-                while (Utilidad.validarLetras(tipo));
+                while (!Utilidad.validarLetras(tipo));
                 String apellido;
 		do{System.out.println("Apellido: ");
                 apellido = scanner.nextLine();}
-                while (Utilidad.validarLetras(apellido));
+                while (!Utilidad.validarLetras(apellido));
 		Contacto c1 = new ContactoPersonal(nombre, apellido, numero, tipo);
 		menuAtributos(c1);
 		admin.addContacto(c1);
@@ -169,11 +169,11 @@ public class UserInputHandler {
             String empresa;
 		do{System.out.println("Empresa: ");
 		empresa = scanner.nextLine();}
-                while(Utilidad.validarLetras(empresa));
+                while(!Utilidad.validarLetras(empresa));
                 String rol;
 		do{System.out.println("Rol: ");
 		rol = scanner.nextLine();}
-                while(Utilidad.validarLetras(rol));
+                while(!Utilidad.validarLetras(rol));
 		Contacto c1 = new ContactoEmpresa(nombre, numero, empresa, rol);
 		menuAtributos(c1);
 		admin.addContacto(c1);

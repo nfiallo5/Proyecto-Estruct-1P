@@ -11,7 +11,7 @@ package ec.edu.espol;
 public class Utilidad {
     
     public static boolean validarLetras(String letras){
-        if (!letras.matches("^[a-zA-Z]+$")){
+        if (!letras.matches("^[a-zA-Z0-9]+$")){
             System.out.println("Debe ingresar sólo letras.\nInténtelo de nuevo.");
             return false;
         }
