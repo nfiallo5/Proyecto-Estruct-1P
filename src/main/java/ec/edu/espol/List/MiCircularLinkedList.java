@@ -29,7 +29,7 @@ public class MiCircularLinkedList <E> extends MiLinkedList<E> implements Seriali
     }
     
     @Override
-    public Iterator<E> iterator() {
+    public MiCircularLinkedListIterator iterator() {
         return new MiCircularLinkedListIterator();
     }
     

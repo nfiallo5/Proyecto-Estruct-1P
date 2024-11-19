@@ -16,7 +16,7 @@ import java.util.Comparator;
 
 public class ListaContactos implements Serializable{
     private static ListaContactos instancia;
-    private MiCircularLinkedList<Contacto> contactos;
+    MiCircularLinkedList<Contacto> contactos;
     private int currentIndex = 0;
     private static final long serialVersionUID = 1L;
 
@@ -67,7 +67,6 @@ public class ListaContactos implements Serializable{
     public String toString(){
         StringBuilder strb = new StringBuilder("Lista de Contactos:\n");
         //Por default se ordena los contactos por su nombre
-        contactos.sort(Comparator.comparing(Contacto::getNombre));
         // Collections.sort(contactos, );
         for(int i = 0; i < contactos.size(); i++){
             strb.append("[").append(i).append("] ").append(contactos.get(i).getNombre()).append("\n");
