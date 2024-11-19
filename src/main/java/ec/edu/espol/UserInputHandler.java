@@ -10,8 +10,10 @@ import ec.edu.espol.Atributos.NumeroEmpresa;
 import ec.edu.espol.Contactos.Contacto;
 import ec.edu.espol.Contactos.ContactoEmpresa;
 import ec.edu.espol.Contactos.ContactoPersonal;
+import ec.edu.espol.List.MiCircularLinkedList.MiCircularLinkedListIterator;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class UserInputHandler {
 	private ListaContactos admin = ListaContactos.getInstance();
@@ -55,6 +57,7 @@ public class UserInputHandler {
 			System.out.println("[0] anterior | [1] siguiente | [2] editar contacto | [3] eliminar contacto | [4] volver a la lista");
 			//Devuelve la accion que quiere el usuario
 			input = Integer.parseInt(scanner.nextLine());
+                        Iterator<Contacto> iterador1 = admin.contactos.iterator();
 			switch (input) {
 				case 0:
 					admin.retroceder();

@@ -16,7 +16,7 @@ import java.util.Comparator;
 
 public class ListaContactos implements Serializable{
     private static ListaContactos instancia;
-    private MiCircularLinkedList<Contacto> contactos;
+    MiCircularLinkedList<Contacto> contactos;
     private int currentIndex = 0;
     private static final long serialVersionUID = 1L;
 

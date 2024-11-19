@@ -28,11 +28,5 @@ public class ContactoEmpresa extends Contacto {
             return c1.getNombre().compareToIgnoreCase(c2.getNombre());
         }
     };
-
-	@Override
-	public String toString(){
-		
-		return "";
-	}
 	
 }
