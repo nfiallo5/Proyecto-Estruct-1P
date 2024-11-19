@@ -19,16 +19,18 @@ public class UserInputHandler {
 
 	//Muestra el menu y devuelve el indice dado por el usuario
 	public void mostrarMenu(){
-                String opcion = null;
+                String opcion;
                 int input1;
             do {
+                opcion = null;
+                input1 = 0;
 		do{System.out.println(admin.toString());
                     System.out.println("Escoja el indice de un contacto o para añadir un contacto (-1): ");
                     System.out.println("[exit: -2]");
                     opcion = scanner.nextLine();}
                 while(!opcion.matches("-?\\d+"));
                 
-		input1 = Integer.parseInt(opcion);
+                        input1 = Integer.parseInt(opcion);
 			if(admin.getContactos().size() > input1 && input1 >= 0){
 				mostrarContacto(input1);
 			}else if(input1 == -1){
@@ -101,7 +103,6 @@ public class UserInputHandler {
 			default:
 				break;
 		}
-                mostrarMenu();
 	}
 
 	private void menuAtributos(Contacto c1){
@@ -145,7 +146,7 @@ public class UserInputHandler {
                     }
                     if(!input.equals("-1")){
                         String etq;
-                        do{System.out.println("Ingrese una etiqueta de para este correo: ");
+                        do{System.out.println("Ingrese una etiqueta para este correo: ");
                         etq = scanner.nextLine();
                         }
                         while(!Utilidad.validarLetras(etq));
@@ -186,11 +187,11 @@ public class UserInputHandler {
 	public void crearContactoEmpresa(String nombre, String numero){
             String empresa;
 		do{System.out.println("Empresa: ");
-		empresa = scanner.nextLine();}
+                    empresa = scanner.nextLine();}
                 while(!Utilidad.validarLetras(empresa));
                 String rol;
 		do{System.out.println("Rol: ");
-		rol = scanner.nextLine();}
+                    rol = scanner.nextLine();}
                 while(!Utilidad.validarLetras(rol));
 		Contacto c1 = new ContactoEmpresa(nombre, numero, empresa, rol);
 		menuAtributos(c1);
