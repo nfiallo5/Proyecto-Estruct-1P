@@ -20,7 +20,6 @@ public class Utilidad {
     
     public static boolean validarCorreo(String correo){
         if (!correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")){
-            System.out.println("Por favor ingrese un correo válido.");
             return false;
         }
         return true;

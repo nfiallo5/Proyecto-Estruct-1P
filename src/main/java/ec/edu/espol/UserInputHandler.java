@@ -18,16 +18,29 @@ public class UserInputHandler {
 	Scanner scanner = new Scanner(System.in);
 
 	//Muestra el menu y devuelve el indice dado por el usuario
-	public int mostrarMenu(){
+	public void mostrarMenu(){
                 String opcion = null;
+                int input1;
+            do {
 		do{System.out.println(admin.toString());
-		System.out.println("Escoja el indice de un contacto o para añadir un contacto (-1): ");
-		System.out.println("[exit: -2]");
-                opcion = scanner.nextLine();}
+                    System.out.println("Escoja el indice de un contacto o para añadir un contacto (-1): ");
+                    System.out.println("[exit: -2]");
+                    opcion = scanner.nextLine();}
                 while(!opcion.matches("-?\\d+"));
                 
-		return Integer.parseInt(opcion);
+		input1 = Integer.parseInt(opcion);
+			if(admin.getContactos().size() > input1 && input1 >= 0){
+				mostrarContacto(input1);
+			}else if(input1 == -1){
+				crearContacto();
+			}
+                        else if(input1 >= admin.getContactos().size() || input1 < -2 ){
+                            System.out.println("Escoja una opción válida.");
+                        }
+            } while(input1 != -2);
         }
+        
+        
 
 	//Muestra el contenido del contacto pedido por el usuario
 	public int mostrarContacto(int indice){
@@ -88,15 +101,24 @@ public class UserInputHandler {
 			default:
 				break;
 		}
+                mostrarMenu();
 	}
 
 	private void menuAtributos(Contacto c1){
-		int input;
+		String input;
+                int opcion;
 		do {
 			System.out.println("Añadir atributos");
 			System.out.println("[0] correo \n[1] direccion \n[2] relacionar contactos \n[3] salir");
-			input = Integer.parseInt(scanner.nextLine());
-			switch (input) {
+                        input = scanner.nextLine();
+                        while (!input.matches("^[0-3]$")){
+                            System.out.println("Por favor escoja una opción válida");
+                            System.out.println("Añadir atributos");
+                            System.out.println("[0] correo \n[1] direccion \n[2] relacionar contactos \n[3] salir");
+                            input = scanner.nextLine();
+                        }
+			opcion = Integer.parseInt(input);
+			switch (opcion) {
 				case 0:
 					anadirCorreo(c1);
 					break;
@@ -108,13 +130,12 @@ public class UserInputHandler {
 				default:
 					break;
 			}
-		} while (input != 3);
+		} while (opcion != 3);
 		
 	}
 
 	private String anadirCorreo(Contacto c1){
 		String input;
-		do{ 
                     System.out.println("Ingrese correo [volver: -1]: ");
                     input =scanner.nextLine();
                     while(!Utilidad.validarCorreo(input) && !(input.equals("-1"))){
@@ -127,26 +148,23 @@ public class UserInputHandler {
                         do{System.out.println("Ingrese una etiqueta de para este correo: ");
                         etq = scanner.nextLine();
                         }
-                        while(Utilidad.validarLetras(etq));
+                        while(!Utilidad.validarLetras(etq));
                         Email correo = new Email(input, etq);
                         c1.addCorreo(correo);
                     }
-                }
-                while(!input.equals("-1"));
+                    return input;
                     
-			
-		return input;
 	}
 
 	private String anadirDireccion(Contacto c1){
 		String input;
-		do {
+                do{
 			System.out.println("Ingrese direccion [volver: -1]: ");
-			input =scanner.nextLine();
+			input =scanner.nextLine();}
+                        while(!Utilidad.validarLetras(input) && !(input.equals("-1")));
 			if(!(input.equals("-1"))){
 				c1.addDireccion(input);
 			}
-		} while (!input.equals("-1"));
 		return input;
 	}
 
@@ -205,18 +223,7 @@ public class UserInputHandler {
                 System.out.println("Bienvenido a la aplicación de Lista de Contactos!\n");
                 ui.cargarContactos(admin);
                 
-		int input1;
-		do {
-			input1 = ui.mostrarMenu();
-			if(admin.getContactos().size() > input1 && input1 >= 0){
-				ui.mostrarContacto(input1);
-			}else if(input1 == -1){
-				ui.crearContacto();
-			}
-                        else if(input1 >= admin.getContactos().size() || input1 < -2 ){
-                            System.out.println("Escoja una opción válida.");
-                        }
-		} while(input1 != -2);
+                ui.mostrarMenu();			
                 
                 try{
                     admin.save();}
