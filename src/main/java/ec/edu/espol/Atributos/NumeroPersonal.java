@@ -5,8 +5,8 @@ public class NumeroPersonal extends Numero{
     protected String tipo;
     
     public NumeroPersonal(String numero, String tipo){
-	super(numero);
-	this.tipo = tipo;
+	    super(numero);
+	    this.tipo = tipo;
     }
         
     @Override

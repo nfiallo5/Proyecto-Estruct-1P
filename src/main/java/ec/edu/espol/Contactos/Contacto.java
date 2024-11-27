@@ -14,10 +14,10 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
     protected HashSet<Numero> numeros;
     protected HashSet<Email> correos;
     protected MiArrayList<String> direcciones;
-    protected HashMap<String, MiArrayList<String>> redesSociales;
     protected MiLinkedList<Contacto> relacionados;
     protected MiArrayList<String> fotos;
     protected String tipo;
+    private Integer cantidadAtributos;
     private static final long serialVersionUID = 1L;
 
     public Contacto(String nombre){
@@ -25,7 +25,6 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
         this.numeros = new HashSet<>();
         this.correos = new HashSet<>();
         this.direcciones = new MiArrayList<>();
-        this.redesSociales = new HashMap<>();
         this.relacionados = new MiLinkedList<>();
     }
 
@@ -69,24 +68,12 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
     public MiArrayList<String> getDireccion() {
         return direcciones;
     }
-    
-    public void addRedSocial(String red, String usuario) {
-        if (red != null && !red.isBlank() && usuario != null && !usuario.isBlank()) {
-            redesSociales.putIfAbsent(red, new MiArrayList<>());
-            redesSociales.get(red).add(usuario);
-        }
+
+    public Integer getCantidadAtributos(){
+        cantidadAtributos = numeros.size() + correos.size() + direcciones.size() + relacionados.size();
+        return cantidadAtributos;
     }
 
-    public void removeRedSocial(String red, String usuario) {
-        if (redesSociales.containsKey(red)) {
-            MiArrayList<String> usuarios = redesSociales.get(red);
-            usuarios.remove(usuario);
-            if (usuarios.isEmpty()) {
-                redesSociales.remove(red); // Elimina la red social si no hay usuarios
-            }
-        }
-    }
-    
     /*
     public void editRedSocial(String red, String nuevoUsuario) {
         if (redesSociales.containsKey(red)) {
@@ -97,9 +84,7 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
     }
     */
     
-    public MiArrayList<String> getUsuariosRedSocial(String red) {
-        return redesSociales.get(red);
-    }
+
     
     public void addFoto(String foto) {
         if (foto != null && !foto.isBlank()) {
@@ -119,22 +104,35 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
 	return nombre;
     }
 
-	// @Override
-	// public int compareTo(Contacto otroContacto) {
-	//     // Comparar primero por nombre, y si son iguales, comparar por apellido
-	//     int nombreComparacion = this.nombre.compareToIgnoreCase(otroContacto.nombre);
-	//     if (nombreComparacion != 0) {
-	// 	   return nombreComparacion;
-	//     }
-	//     return this.apellido.compareToIgnoreCase(otroContacto.apellido);
-	// }
+    public String getTipo() {
+        return tipo;
+    }
 
-    public static Comparator<Contacto> ordenarPorTipo = new Comparator<Contacto>() {
-        @Override
-        public int compare(Contacto c1, Contacto c2) {
-            return c1.tipo.compareToIgnoreCase(c2.tipo);
-        }
-    };
+    @Override
+    public int compareTo(Contacto c2){
+        return this.getClass().getName().compareTo(c2.getClass().getName());
+    }
+
+    // public static Comparator<Contacto> ordenarPorTipo = new Comparator<Contacto>() {
+    //     @Override
+    //     public int compare(Contacto c1, Contacto c2) {
+    //         return c1.tipo.compareToIgnoreCase(c2.tipo);
+    //     }
+    // };
+
+    // public static Comparator<Contacto> ordenarPorClase = new Comparator<Contacto>() {
+    //     @Override
+    //     public int compare(Contacto c1, Contacto c2){
+    //         return c1.getClass().getName().compareToIgnoreCase(c2.getClass().getName());
+    //     }
+    // };
+
+    // public static Comparator<Contacto> filtarNombre = new Comparator<Contacto>() {
+    //     @Override
+    //     public int compare(Contacto c1, Contacto c2){
+    //         return c1.getNombre().compareToIgnoreCase(c2.getNombre());
+    //     }
+    // };
 
     @Override
     public String toString() {
@@ -155,17 +153,11 @@ public abstract class Contacto implements Comparable<Contacto>, Serializable{
         for (Email correo : correos) {
             strb.append("\t" + correo);
         }
-        strb.append("\nRedes Sociales:");
-        if (redesSociales.isEmpty()) {
-            strb.append(" No especificadas");
-        } else {
-            for (String red : redesSociales.keySet()) {
-                strb.append("\n\t" + red + ": ");
-                for (String usuario : redesSociales.get(red)) {
-                    strb.append("\n\t\t- " + usuario);
-                }
-            }
-        }
+
         return strb.toString();
+    }
+
+    public static void main(String[] args){
+
     }
 }

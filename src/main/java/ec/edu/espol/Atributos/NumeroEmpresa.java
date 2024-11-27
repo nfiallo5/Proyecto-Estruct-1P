@@ -6,7 +6,6 @@ public class NumeroEmpresa extends Numero{
 	super(numero);
 	
     }
-        
     
     @Override
     public String toString(){

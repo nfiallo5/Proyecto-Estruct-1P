@@ -1,10 +1,11 @@
 package ec.edu.espol.List;
 
 import java.io.Serializable;
-import java.util.Comparator;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
-public class MiLinkedList<E> implements Iterable<E>, Serializable{
+public class MiLinkedList<E extends Comparable<E>> implements Iterable<E>, Serializable {
     protected Nodo<E> head;
     protected Nodo<E> tail;
     protected int size;
@@ -25,19 +26,6 @@ public class MiLinkedList<E> implements Iterable<E>, Serializable{
         }
         size++; 
     }
-
-	/*
-        public void add(T elemento, int indice){
-            Nodo<T> nuevoNodo = new Nodo<>(elemento);
-            if(head == null){
-		head = nuevoNodo;
-		tail = nuevoNodo;
-            } else {
-                Nodo<T> actual = getNodo(indice);
-
-            }
-	}
-    */
         
     private Nodo<E> getNodo(int index){
 	    if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
@@ -112,38 +100,72 @@ public class MiLinkedList<E> implements Iterable<E>, Serializable{
         return data;
 	}
 
-    private Nodo<E> mergeSort(Nodo<E> head, Comparator<E> comparator) {
-        if (head == null || head.getNext() == null) return head;
-        Nodo<E> middle = getMiddle(head);
-        Nodo<E> nextOfMiddle = middle.getNext();
+    public void sort() {
+        if (head == null || head.getNext() == null) return; 
+        head = mergeSort(head);
+    
+        tail = head;
+        while (tail.getNext() != null) {
+            tail = tail.getNext();
+        }
+    }
+    
+    private Nodo<E> mergeSort(Nodo<E> node) {
+        if (node == null || node.getNext() == null) return node;
+    
+        Nodo<E> middle = getMiddle(node);
+        Nodo<E> secondHalf = middle.getNext();
         middle.setNext(null);
-        Nodo<E> left = mergeSort(head, comparator);
-        Nodo<E> right = mergeSort(nextOfMiddle, comparator);
-        return sortedMerge(left, right, comparator);
+    
+        if (secondHalf != null) secondHalf.setPrev(null);
+    
+        Nodo<E> left = mergeSort(node);
+        Nodo<E> right = mergeSort(secondHalf);
+    
+        return merge(left, right);
     }
-
-    public void sort(Comparator<E> comparator){
-		head = mergeSort(head, comparator);
-    }
-
-    private Nodo<E> sortedMerge(Nodo<E> a, Nodo<E> b, Comparator<E> comparator) {
-        if (a == null) return b;
-        if (b == null) return a;
-        Nodo<E> result = comparator.compare(a.getData(), b.getData()) <= 0 ? a : b;
-        result.setNext(sortedMerge(result == a ? a.getNext() : a, result == b ? b.getNext() : b, comparator));
-        if (result.getNext() != null) result.getNext().setPrev(result);
-        return result;
-    }
-
-    private Nodo<E> getMiddle(Nodo<E> head) {
-        if (head == null) return head;
-        Nodo<E> slow = head, fast = head;
-        while (fast.getNext() != null && fast.getNextNext() != null) {
+    
+    private Nodo<E> getMiddle(Nodo<E> node) {
+        if (node == null) return null;
+    
+        Nodo<E> slow = node;
+        Nodo<E> fast = node;
+    
+        while (fast.getNext() != null && fast.getNext().getNext() != null) {
             slow = slow.getNext();
-            fast = fast.getNext();
+            fast = fast.getNext().getNext();
         }
         return slow;
-    }	
+    }
+    
+    private Nodo<E> merge(Nodo<E> left, Nodo<E> right) {
+        Nodo<E> temp = new Nodo<>(null); 
+        Nodo<E> current = temp;
+    
+        while (left != null && right != null) {
+            if (left.getData().compareTo(right.getData()) <= 0) {
+                current.setNext(left);
+                left.setPrev(current);
+                left = left.getNext();
+            } else {
+                current.setNext(right);
+                right.setPrev(current);
+                right = right.getNext();
+            }
+            current = current.getNext();
+        }
+    
+        if (left != null) {
+            current.setNext(left);
+            left.setPrev(current);
+        } else if (right != null) {
+            current.setNext(right);
+            right.setPrev(current);
+        }
+    
+        return temp.getNext();
+    }
+    
 
     public int size(){
     	return size;
@@ -212,4 +234,5 @@ public class MiLinkedList<E> implements Iterable<E>, Serializable{
             if (size == 0) head = tail = null;
         }
     }
+
 }

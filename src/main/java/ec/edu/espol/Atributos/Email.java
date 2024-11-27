@@ -23,4 +23,9 @@ public class Email implements Serializable{
 	public void setTipo(String tipo){
 		this.tipo = tipo;
 	}
+
+	@Override
+	public String toString(){
+		return "Descripcion: " + tipo + "\nCorreo: " + email + '\n';
+	}
 }

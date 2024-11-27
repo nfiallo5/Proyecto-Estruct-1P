@@ -21,27 +21,27 @@ public class UserInputHandler {
 
 	//Muestra el menu y devuelve el indice dado por el usuario
 	public void mostrarMenu(){
-                String opcion;
-                int input1;
-            do {
-                opcion = null;
-                input1 = 0;
-		do{System.out.println(admin.toString());
-                    System.out.println("Escoja el indice de un contacto o para añadir un contacto (-1): ");
-                    System.out.println("[exit: -2]");
-                    opcion = scanner.nextLine();}
-                while(!opcion.matches("-?\\d+"));
-                
-                        input1 = Integer.parseInt(opcion);
+		String opcion;
+		int input1;
+		do {
+				opcion = null;
+				input1 = 0;
+			do{System.out.println(admin.toString());
+				System.out.println("Escoja el indice de un contacto o para añadir un contacto (-1): ");
+				System.out.println("[exit: -2]");
+				opcion = scanner.nextLine();}
+			while(!opcion.matches("-?\\d+"));
+				
+			input1 = Integer.parseInt(opcion);
 			if(admin.getContactos().size() > input1 && input1 >= 0){
 				mostrarContacto(input1);
 			}else if(input1 == -1){
 				crearContacto();
 			}
-                        else if(input1 >= admin.getContactos().size() || input1 < -2 ){
-                            System.out.println("Escoja una opción válida.");
-                        }
-            } while(input1 != -2);
+			else if(input1 >= admin.getContactos().size() || input1 < -2 ){
+				System.out.println("Escoja una opción válida.");
+			}
+		} while(input1 != -2);
         }
         
         
@@ -57,7 +57,7 @@ public class UserInputHandler {
 			System.out.println("[0] anterior | [1] siguiente | [2] editar contacto | [3] eliminar contacto | [4] volver a la lista");
 			//Devuelve la accion que quiere el usuario
 			input = Integer.parseInt(scanner.nextLine());
-                        Iterator<Contacto> iterador1 = admin.contactos.iterator();
+			Iterator<Contacto> iterador1 = admin.contactos.iterator();
 			switch (input) {
 				case 0:
 					admin.retroceder();
@@ -86,7 +86,7 @@ public class UserInputHandler {
                 while (!Utilidad.validarLetras(nom));
                 System.out.println("P = Personal\nE = Empresarial\nElija un tipo de contacto (P/E):");
                 String tipo  = scanner.nextLine();
-                while(!tipo.equals("E") && !tipo.equals("P")){
+                while(!tipo.equalsIgnoreCase("E") && !tipo.equalsIgnoreCase("P")){
                     System.out.println("Tipo debe ser Empresa o Personal.");
                     System.out.println("Tipo de contacto (P/E):");
                     tipo  = scanner.nextLine();}
@@ -173,14 +173,14 @@ public class UserInputHandler {
 	}
 
 	public void crearContactoPersonal(String nombre, String numero){
-                String tipo;
-                do{System.out.println("Ingrese una etiqueta para este número (Personal, casa, trabajo, etc):");
-                tipo = scanner.nextLine();}
-                while (!Utilidad.validarLetras(tipo));
-                String apellido;
+		String tipo;
+		do{System.out.println("Ingrese una etiqueta para este número (Personal, casa, trabajo, etc):");
+			tipo = scanner.nextLine();}
+		while (!Utilidad.validarLetras(tipo));
+		String apellido;
 		do{System.out.println("Apellido: ");
-                apellido = scanner.nextLine();}
-                while (!Utilidad.validarLetras(apellido));
+			apellido = scanner.nextLine();}
+			while (!Utilidad.validarLetras(apellido));
 		Contacto c1 = new ContactoPersonal(nombre, apellido, numero, tipo);
 		menuAtributos(c1);
 		admin.addContacto(c1);
@@ -208,16 +208,17 @@ public class UserInputHandler {
 	}
         
         public boolean cargarContactos(ListaContactos usuario){
-            try{usuario.load();
-                System.out.println("La lista de contactos se ha cargado exitosamente.\n");
-            return true;}
-            catch (FileNotFoundException e){
-                System.out.println("No existe una lista de contactos para cargar.\n");
-            }
-            catch (IOException | ClassNotFoundException e1){
-                System.out.println("Error al cargar contactos.\n");
-            }
-            return false;
+		try{
+			usuario.load();
+			System.out.println("La lista de contactos se ha cargado exitosamente.\n");
+			return true;}
+		catch (FileNotFoundException e){
+			System.out.println("No existe una lista de contactos para cargar.\n");
+		}
+		catch (IOException | ClassNotFoundException e1){
+			System.out.println("Error al cargar contactos.\n");
+		}
+		return false;
         }
 
 

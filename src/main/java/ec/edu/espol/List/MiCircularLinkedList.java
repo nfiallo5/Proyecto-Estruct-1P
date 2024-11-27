@@ -5,7 +5,8 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class MiCircularLinkedList <E> extends MiLinkedList<E> implements Serializable{
+public class MiCircularLinkedList <E extends Comparable<E>> extends MiLinkedList<E> implements Serializable{
+    
     private void formarCircular(){
         this.tail.setNext(head);
         this.head.setPrev(tail);
@@ -26,6 +27,16 @@ public class MiCircularLinkedList <E> extends MiLinkedList<E> implements Seriali
         E data = super.removeLast();
         formarCircular();
         return data;
+    }
+
+    public void display() {
+        if(head == null) return ;
+
+        Nodo<E> actual = head;
+        do {
+            System.out.println(actual.getData());
+            actual = actual.getNext(); 
+        } while(actual != head);
     }
     
     @Override
@@ -52,7 +63,7 @@ public class MiCircularLinkedList <E> extends MiLinkedList<E> implements Seriali
         }
 
         public E previous() {
-            if (current == null) throw new IllegalStateException("No hay elemento previo");
+            if (current == null || current.getPrev() == null) throw new IllegalStateException("No hay elemento previo");
             current = current.getPrev();
             return current.getData();
         }
@@ -82,4 +93,5 @@ public class MiCircularLinkedList <E> extends MiLinkedList<E> implements Seriali
             formarCircular();
         }
     }
+
 }

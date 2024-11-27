@@ -2,7 +2,9 @@ package ec.edu.espol.List;
 
 import java.io.Serializable;
 
-public class MyStack<E> extends MiLinkedList<E> implements Serializable{
+public class MyStack<E extends Comparable<E>> extends MiLinkedList<E>{
+	private static final long  serialVersionUID = 1L;
+
 	public MyStack(){}
 
 	public E peek(){
